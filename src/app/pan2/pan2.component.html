@@ -1,0 +1,132 @@
+    <!-- Selector para elegir Desayuno, Comida o Cena -->
+    <label for="mealSelect">Selecciona una opción:</label>
+    <select id="mealSelect" [(ngModel)]="selectedMeal">
+      <option value="desayuno">Desayuno</option>
+      <option value="comida">Comida</option>
+      <option value="cena">Cena</option>
+    </select>
+
+<div class="admin-panel">
+
+    <div class="image-upload">
+        <label for="imageInput">Seleccionar imagen:</label>
+        <input type="file" id="imageInput" (change)="onImageSelect($event)" />
+        
+        <div id="imageName">
+            <img [src]="imageSrc" alt="Imagen seleccionada" class="selected-image" />
+            <span>{{ imageName }}</span>
+        </div>
+</div>
+
+<div class="input-fields">
+    <label for="productName">Nombre del Producto:</label>
+    <input type="text" id="productName" [(ngModel)]="newProduct.name" placeholder="Nombre del producto">
+
+    <label for="productPrice">Precio:</label>
+    <input type="number" id="productPrice" [(ngModel)]="newProduct.price" placeholder="Precio">
+
+    <label for="productQuantity">Cantidad:</label>
+    <input type="number" id="productQuantity" [(ngModel)]="newProduct.quantity" placeholder="Cantidad">
+
+    <label for="productDescription">Descripción:</label>
+    <input type="text" id="productDescription" [(ngModel)]="newProduct.description" placeholder="Descripción">
+  </div>
+
+  <!-- Botones de acción: Eliminar y Agregar -->
+  <div class="action-buttons">
+    <button (click)="clearFields()">Eliminar</button>
+    <button (click)="onAgregarProducto2()">Agregar</button>
+  </div>
+
+    @if( selectedMeal === 'desayuno'){
+        <!-- Mostrar listado dependiendo de la opción seleccionada -->
+        <div class="meal">
+      <h2>Listado de Desayuno</h2>
+      <!-- Listado vacío de desayuno -->
+      <p>Huevos estrellados - Elegir cantidad</p>
+      <ul>
+        <li>
+            <div class="item">
+              <img [src]="itemDesayuno.icon" alt="Icono del item" class="item-icon">
+              <span>{{ itemDesayuno.name }}</span>
+              <input type="number" [(ngModel)]="itemDesayuno.stock" min="0" class="quantity-selector">
+              <span>{{ itemDesayuno.price }}</span>
+              <span>{{ itemDesayuno.stock > 0 ? 'Disponible' : 'No disponible' }}</span>
+            </div>
+
+            @for( item of productListDesayuno; track item; let i=$index ){
+                <div class="item">
+                    <img [src]="item.icon" alt="Icono del item" class="item-icon">
+                    <span>{{ item.name }}</span>
+                    <input type="number" [(ngModel)]="item.quantity" min="0" class="quantity-selector">
+                    <span>{{ item.price }}</span>
+                    <span>{{ item.quantity > 0 ? 'Disponible' : 'No disponible' }}</span>
+                  </div>
+                <div >
+            </div>
+            }
+
+        </li>
+            </ul>
+        </div>
+    }
+    @if( selectedMeal === 'comida'){
+    <div class="meal">
+      <h2>Listado de Comida</h2>
+      <p>Filete con champiñones - Elegir término de carne y complemento</p>
+      <ul>
+        <li>
+          <div class="item">
+            <img [src]="itemComida.icon" alt="Icono del item" class="item-icon">
+            <span>{{ itemComida.name }}</span>
+            <input type="number" [(ngModel)]="itemComida.stock" min="0" class="quantity-selector">
+            <span>{{ itemComida.price }}</span>
+            <span>{{ itemComida.stock > 0 ? 'Disponible' : 'No disponible' }}</span>
+          </div>
+
+          @for( item of productListComida; track item; let i=$index ){
+            <div class="item">
+                <img [src]="item.icon" alt="Icono del item" class="item-icon">
+                <span>{{ item.name }}</span>
+                <input type="number" [(ngModel)]="item.quantity" min="0" class="quantity-selector">
+                <span>{{ item.price }}</span>
+                <span>{{ item.quantity > 0 ? 'Disponible' : 'No disponible' }}</span>
+              </div>
+            <div >
+        </div>
+        }
+
+        </li>
+      </ul>
+    </div>
+    }
+    @if( selectedMeal === 'cena'){
+    <div class="meal">
+      <h2>Listado de Cena</h2>
+      <p>Sincronizada - Elegir complemento</p>
+      <ul>
+        <li>
+          <div class="item">
+            <img [src]="itemCena.icon" alt="Icono del item" class="item-icon">
+            <span>{{ itemCena.name }}</span>
+            <input type="number" [(ngModel)]="itemCena.stock" min="0" class="quantity-selector">
+            <span>{{ itemCena.price }}</span>
+            <span>{{ itemCena.stock > 0 ? 'Disponible' : 'No disponible' }}</span>
+          </div>
+
+          @for( item of productListCena; track item; let i=$index ){
+            <div class="item">
+                <img [src]="item.icon" alt="Icono del item" class="item-icon">
+                <span>{{ item.name }}</span>
+                <input type="number" [(ngModel)]="item.quantity" min="0" class="quantity-selector">
+                <span>{{ item.price }}</span>
+                <span>{{ item.quantity > 0 ? 'Disponible' : 'No disponible' }}</span>
+              </div>
+            <div >
+        </div>
+        }
+
+        </li>
+      </ul>
+  </div>
+    }
